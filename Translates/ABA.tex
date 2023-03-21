@@ -1,6 +1,7 @@
 \documentclass{ltjsarticle}
 % ltjsarticle: lualatex 用の 日本語 documentclass
 % 他のタイプセットエンジンを使ってビルドする場合は、 \documentclass[dvipdfmx]{jsarticle} などとする。
+\usepackage{graphicx}
 \usepackage{mathrsfs}
 \usepackage{amssymb}
 
@@ -65,5 +66,63 @@ $\mathbf{u} = (\mathbf{u}_1, \mathbf{u}_2)$と$A = A_1 \times A_2$とすると�
 \end{eqnarray}
 
 すなわち，$f$の$\sup$は，$\mathfrak{R}^{n_1}$と$\mathfrak{R}^{n_2}$の2つの凸部分集合のデカルト積に等しい$\mathfrak{R}^{n_1 + n_2}$の部分集合に対してそれぞれ取られる．
+
+ここで，式(\ref{10.3})の二重$\sup$の値である$f^{*}$を計算するための交互最適化アルゴリズムについて説明する．
+$k \geq 0$に対して$\mathbf{u}^{(k)} = ( \mathbf{u}_1^{(k)}, \mathbf{u}_2^{(k)} )$と定義する．
+$A_1$において任意に選んだベクトルを$\mathbf{u}_1^{(0)}$と$\mathbf{u}_2^{(0)}=c_2 (\mathbf{u}_1^{(0)} )$する．
+$k \geq 1$の場合，$\mathbf{u}^{(k)}$は
+\begin{eqnarray}
+  \label{10.7}
+  \mathbf{u}_1^{(k)} = c_1 ( \mathbf{u}_2^{(k-1)} )
+\end{eqnarray}
+と
+\begin{eqnarray}
+  \label{10.8}
+  \mathbf{u}_2^{(k)} = c_2 ( \mathbf{u}_1^{(k)} )
+\end{eqnarray}
+で定義される．
+すなわち，$\mathbf{u}_1^{(k)}$，$\mathbf{u}_2^{(k)}$は，$A_1$において$\mathbf{u}_1^{(0)}$が任意に選ばれることを除いて，順序$\mathbf{u}_1^{(0)}, \mathbf{u}_2^{(0)}, \mathbf{u}_1^{(1)}, \mathbf{u}_2^{(1)}, \mathbf{u}_1^{(2)}, \mathbf{u}_2^{(2)}, \cdots$で生成され，順序の各ベクトルは前のベクトルの関数である．
+\begin{eqnarray}
+  \label{10.9}
+  f^{(k)} = f( \mathbf{u}^{(k)})
+\end{eqnarray}
+とする．次に式(\ref{10.4})と式(\ref{10.5})から$k \geq 1$について
+\begin{eqnarray}
+  \label{10.10}
+  f^{(k)} &=& f\left(\mathbf{u}_1^{(k)}, \mathbf{u}_2^{(k)}\right) \\
+  \label{10.11}
+  &\geq& f \left(\mathbf{u}_1^{(k)}, \mathbf{u}_2^{(k-1)}\right) \\
+  \label{10.12} 
+  &\geq& f \left(\mathbf{u}_1^{(k-1)}, \mathbf{u}_2^{(k-1)}\right) \\
+  \label{10.13}
+  &=& f^{(k-1)}
+\end{eqnarray}
+とする．
+数列$f^{(k)}$は非減少であり，$f$は上から有界であるから収束するはずである．
+3節で$f$が凹型であれば$f^{(k)} \rightarrow f^*$であることを示すことにする．
+図\ref{fig10.1}は交互最大化アルゴリズムの説明図であり，この場合$n_1$も$n_2$も$1$に等しく，$f^{(k)} \rightarrow f^*$となる．
+\begin{figure}[htbp]
+  \label{fig10.1}
+  \begin{center}
+  \includegraphics{Fig10-1.pdf}
+  \caption{Alternating Optimization}
+  \end{center}
+\end{figure}
+
+交互最適化アルゴリズムは，次のような系図で説明する事ができる．
+あるハイカーが山頂を目指すとする．
+山のある地点から出発して，南北と東西に交互に移動する．
+（この問題では，南北と東西の方向は多次元的である．）
+それぞれの移動で，ハイカーは可能な限り高い地点に移動する．
+問題は，ハイカーが最終的に山のどの地点からでも山頂に近づくことができるかどうかである．
+
+式(\ref{10.3})の$f$を$-f$に置き換えると，二重$\sup$は二重$\inf$を用いて
+\begin{eqnarray}
+  \label{10.14}
+  \inf_{\mathbf{u}_1 \in A_1} \inf_{\mathbf{u}_2 \in A_2} f \left( \mathbf{u}_1, \mathbf{u}_2 \right)
+\end{eqnarray}
+となる．$A_1$，$A_2$，$f$に関するこれまでの仮定は，$f$が上方から有界でなく下方から有界であることを仮定した以外はすべて有効である．
+式(\ref{10.14})の二重$\inf$は，同じ交互最適化アルゴリズムで計算することができる．
+なお，$f$を$-f$に置き換えると，式(\ref{10.4})と式(\ref{10.5})の最大値は最小値になり，式(\ref{10.11})と式(\ref{10.12})の不等号は逆になる．
 
 \end{document}
