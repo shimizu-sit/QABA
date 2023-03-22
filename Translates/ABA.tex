@@ -5,6 +5,19 @@
 \usepackage{mathrsfs}
 \usepackage{amssymb}
 
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{prop}[dfn]{Proposition}
+\newtheorem{lem}[dfn]{Lemma}
+\newtheorem{thm}[dfn]{Theorem}
+\newtheorem{cor}[dfn]{Corollary}
+\newtheorem{rem}[dfn]{Remark}
+%\newtheorem*{rem*}[dfn]{Remark}
+\newtheorem{fact}[dfn]{Fact}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
 \begin{document}
 
 \title{Chapter 10 The Blahut-Arimoto Alogorithmes}
@@ -124,5 +137,69 @@ $k \geq 1$の場合，$\mathbf{u}^{(k)}$は
 となる．$A_1$，$A_2$，$f$に関するこれまでの仮定は，$f$が上方から有界でなく下方から有界であることを仮定した以外はすべて有効である．
 式(\ref{10.14})の二重$\inf$は，同じ交互最適化アルゴリズムで計算することができる．
 なお，$f$を$-f$に置き換えると，式(\ref{10.4})と式(\ref{10.5})の最大値は最小値になり，式(\ref{10.11})と式(\ref{10.12})の不等号は逆になる．
+
+\section{THE ALGORITHMS}
+本節では，前節で説明した交互最適化アルゴリズムを通信路容量とレート歪み関数を計算するために特殊化する．
+対応するアルゴリズムはBAアルゴリズムとして知られている．
+
+\subsection{CHANNEL CAPACITY}
+以下，入力分布$r(x)$を$\mathbf{r}$で表し，$\mathbf{r}$が厳密に正であれば$\mathbf{r} > 0$，すなわちすべての$x \in \mathcal{X}$に対して$r(x) > 0$と書くことができる．
+$\mathbf{r}$が厳密に性でない場合は$\mathbf{r} \geq 0$と書くことにする．
+
+\begin{lem}
+  $r(x)p(x|y)$を$\mathbf{r} > 0$となるよう$\mathcal{X} \times \mathcal{Y}$上に与えられた合同分布とし，$\mathbf{q}$を$\mathcal{Y}$から$\mathcal{X}$への遷移行列とする．
+  すると
+  \begin{eqnarray}
+    \label{10.15}
+    \max_{\mathbf{q}} \sum_{x} \sum_{y} r(x) p(x|y) \log \frac{q(x|y)}{r(x)} = \sum_{x} \sum_{y} r(x) p(x|y) \log \frac{q^*(x|y)}{r(x)}
+  \end{eqnarray}
+  は
+  \begin{eqnarray}
+    \label{10.16}
+    q(x|y) = 0 \mbox{if and only if} p(x|y) = 0
+  \end{eqnarray}
+  と
+  \begin{eqnarray}
+    \label{10.17}
+    q^*(x|y) = \frac{r(x)p(y|x)}{\sum_{x'} r(x')p(y|x')}
+  \end{eqnarray}
+  のようなすべての$\mathbf{q}$にわたって最大化がとられ，すなわち最大化する$\mathbf{q}$は入力分布$\mathbf{r}$と遷移行列$p(x|y)$に対応するものであることがわかる．
+\end{lem}
+
+式(\ref{10.15})移行では，$r(x) > 0$かつ$p(y|x) > 0$であるすべての$x$と$y$に対して総和をとるという慣例を採用ｓるう．
+なお，式(\ref{10.15})の右辺は，$\mathbf{r}$が一般通信路に対する入力分布である$p(y|x)$とするときの相互情報量$I(X;Y)$を示す．
+
+\begin{proof}
+  式(\ref{10.17})を以下のようにする．
+  \begin{eqnarray}
+    \label{10.18}
+    w(y) = \sum_{x'}r(x')p(y|x')
+  \end{eqnarray}
+  全て$y \in \mathcal{Y}$について一般性を損なって，いくつかの$x \in \mathcal{X}$について$p(y|x) > 0$であると仮定する．
+  $\mathbf{r} > 0$なので，すべての$y$について$w(y) > 0$となり，したがって$q^*(x|y)$は定義される．
+  式(\ref{10.17})を並べ替えと
+  \begin{eqnarray}
+    \label{10.19}
+    r(x)p(y|x) = w(y)q^*(x|y)
+  \end{eqnarray}
+  が得られる．
+
+  ここで，
+  \begin{eqnarray}
+    && \sum_{x} \sum_{y} r(x)p(y|x) \log \frac{q^*(x|y)}{r(x)} - \sum_{x} \sum_{y} r(x)p(y|x) \log \frac{q(x|y)}{r(x)} \nonumber \\
+    \label{10.20}
+    &=& \sum_{x} \sum_{y} r(x) p(y|x)\log \frac{q^*(x|y)}{q(x|y)} \\
+    \label{10.21}
+    &=& \sum_{y} \sum_{x} w(y) p^*(x|y)\log \frac{q^*(x|y)}{q(x|y)} \\
+    \label{10.22}
+    &=& \sum_{y} w(y) \sum_{x}  p^*(x|y)\log \frac{q^*(x|y)}{q(x|y)} \\
+    \label{10.23}
+    &=& \sum_{y} w(y) D \left(  q^*(x|y) \parallel q(x|y) \right) \\
+    \label{10.24}
+    &\geq& 0
+  \end{eqnarray}
+  を考える．式(\ref{10.21})は式(\ref{10.19})から導かれ，最後のステップは発散不等式の適用である．
+  そして，式(\ref{10.17})で$\mathbf{r}>0$なので$\mathbf{q}^*$が式(\ref{10.16})を満たすことに注目し，証明を完了する．
+\end{proof}
 
 \end{document}
