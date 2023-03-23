@@ -147,6 +147,7 @@ $k \geq 1$の場合，$\mathbf{u}^{(k)}$は
 $\mathbf{r}$が厳密に性でない場合は$\mathbf{r} \geq 0$と書くことにする．
 
 \begin{lem}
+  \label{Lemma10.1}
   $r(x)p(x|y)$を$\mathbf{r} > 0$となるよう$\mathcal{X} \times \mathcal{Y}$上に与えられた合同分布とし，$\mathbf{q}$を$\mathcal{Y}$から$\mathcal{X}$への遷移行列とする．
   すると
   \begin{eqnarray}
@@ -202,4 +203,138 @@ $\mathbf{r}$が厳密に性でない場合は$\mathbf{r} \geq 0$と書くこと�
   そして，式(\ref{10.17})で$\mathbf{r}>0$なので$\mathbf{q}^*$が式(\ref{10.16})を満たすことに注目し，証明を完了する．
 \end{proof}
 
+\begin{thm}
+  \label{theorem10.2}
+  離散的無記憶通信路$p(y|x)$に対して，
+  \begin{eqnarray}
+    \label{10.25}
+    C = \sup_{\mathbf{r}>0} \max_{\mathbf{q}} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+  \end{eqnarray}
+  ここで最大化は式(\ref{10.16})を満たすすべての$\mathbf{q}$に対して行われる．
+\end{thm}
+
+\begin{proof}
+  汎用通信路$p(y|x)$の入力分布$\mathbf{r}$としたときの相互情報量$I(X;Y)$を$I(\mathbf{r}, \mathbf{p})$とする．
+  すると，
+  \begin{eqnarray}
+    \label{10.26}
+    C = \max_{\mathbf{r} \geq 0} I (\mathbf{r}, \mathbf{p})
+  \end{eqnarray}
+  と書くことができる．$\mathbf{r}^*$が$C$を達成するとる．ここで$\mathbf{r}^* > 0$ならば，
+  \begin{eqnarray}
+    \label{10.27}
+    C &=& \max_{\mathbf{r} \geq 0} I(\mathbf{r}, \mathbf{p}) \\
+    \label{10.28}
+    &=& \max_{\mathbf{r} > 0} I(\mathbf{r}, \mathbf{p}) \\
+    \label{10.29}
+    &=& \max_{\mathbf{r} > 0} \max_{\mathbf{q}} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)} \\
+    \label{10.30}
+    &=& \sup_{\mathbf{r} > 0} \max_{\mathbf{q}} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+  \end{eqnarray}
+  となり，式(\ref{10.29})はLemma\ref{Lemma10.1}から成り立つ（そして最大化は式(\ref{10.16})を満たすすべての$\mathbf{q}$に対して行われる）．
+
+  次に，$\mathbf{r}^* \geq 0$の場合を考える．
+  $((\mathbf{r}, \mathbf{p}))$は$\mathbf{r}$に連続なので，任意の$\epsilon > 0$に対して
+  \begin{eqnarray}
+    \label{10.31}
+    \parallel \mathbf{r} - \mathbf{r}^* \parallel < \delta,
+  \end{eqnarray}
+  ならば，
+  \begin{eqnarray}
+    \label{10.32}
+    C - I(\mathbf{r}, \mathbf{p}) < \epsilon
+  \end{eqnarray}
+  となる$\delta > 0$が存在し，ここで$\parallel \mathbf{r} - \mathbf{r}^* \parallel$は$\mathbf{r}$と$\mathbf{r}^*$のユークリッド距離を表す．
+  特に式(\ref{10.31})と式(\ref{10.32})を満たす$\hat{\mathbf{r}} > 0$が存在する．
+  すると
+  \begin{eqnarray}
+    \label{10.33}
+    C &=& \max_{\mathbf{r} \geq 0} I(\mathbf{r}, \mathbf{p}) \\
+    \label{10.34}
+    &\geq& \sup_{\mathbf{r} > 0} I(\mathbf{r}, \mathbf{p}) \\
+    \label{10.35}
+    &\geq& I(\hat{\mathbf{r}}, \mathbf{p}) \\
+    \label{10.36}
+    &>& C - \epsilon
+  \end{eqnarray}
+  となり，最後のステップが$\hat{\mathbf{r}}$が式(\ref{10.32})を満たすので成り立つ．
+  したがって
+  \begin{eqnarray}
+    \label{10.37}
+    C - \epsilon < \sup_{\mathbf{r} > 0} I(\mathbf{r}, \mathbf{p}) \leq C
+  \end{eqnarray}
+  が得られる．
+  最後に，$\epsilon \rightarrow 0$とすることで，
+  \begin{eqnarray}
+    \label{10.38}
+    C = \sup_{\mathbf{r} > 0} I(\mathbf{r}, \mathbf{p}) = \sup_{\mathbf{r} > 0} \max_{\mathbf{q}} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+  \end{eqnarray}
+  となる．
+  これで証明は達成される．
+  さて，式(\ref{10.3})の二重$\sup$について，
+  \begin{eqnarray}
+    \label{10.39}
+    f(\mathbf{r}, \mathbf{q}) = \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+  \end{eqnarray}
+  で，$\mathbf{r}$と$\mathbf{q}$がそれぞれ$\mathbf{u}_1$，$\mathbf{u}_2$の役を演じているとする．
+  \begin{eqnarray}
+    \label{10.40}
+    A_1 = \{ ( r(x), x \in \mathcal{X} ) : r(x) > 0 \ \ \mbox{and} \ \  \sum_{x} r(x) = 1 \}
+  \end{eqnarray}
+  と
+  \begin{eqnarray}
+    \label{10.41}
+    A_2 &=& \{ \left( q(x|y), (x,y) \in \mathcal{X} \times \mathcal{Y} \right) : q(x|y) > 0 \nonumber \\
+    && \mbox{if} \ \  p(x|y) > 0, q(x|y) = 0 \ \ \mbox{if} \ \ p(y|x) = 0 \nonumber \\
+    && \mbox{and} \ \ \sum_{x} q(x|y) = 1 \ \ \mbox{for all} \ \ y \in \mathcal{Y} \}
+  \end{eqnarray}
+  そして，$A_1$は$\mathfrak{R}^{| \mathcal{X} |}$の部分集合，$A_2$は$\mathfrak{R}^{|\mathcal{X}| |\mathcal{Y}|}$の部分集合であり，$A_1$，$A_2$ともに凸であることが容易に確認できる．
+  すべての$\mathbf{r} \in A_1$と$\mathbf{q} \in A_2$について，Lemma\ref{Lemma10.1}により
+  \begin{eqnarray}
+    \label{10.42}
+    f(\mathbf{r}, \mathbf{q}) &=& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)} \\
+    \label{10.43}
+    &\leq& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q^*(x|y)}{r(x)} \\
+    \label{10.44}
+    &=& I(X;Y) \\
+    \label{10.45}
+    &\leq& H(X) \\
+    \label{10.46}
+    &\leq& \log | \mathcal{X} |
+  \end{eqnarray}
+  となる．
+  したがって，$f$は上方から有界である．
+  すべての$\mathbf{q} \in A_2$について，$p(x|y)=0$となるようなすべての$x$と$y$について$q(x|y)=0$となるので，$\mathbf{q}$のこれらの成分は退化する．
+  実際，これらの$\mathbf{q}$の成分は式(\ref{10.39})の$f(\mathbf{r}, \mathbf{q})$の定義に現れないが，これは次のように理解できるだろう．
+  式(\ref{10.39})の二重和は$r(x)>0$かつ$p(y|x)>0$だるようなすべての$x$と$y$に対して行われるという慣例を思い出してほしい．
+  $q(x|y)=0$なら，$p(y|x)=0$あんおで，該当項は二重和に含まれない．
+  したがって，式(\ref{10.39})の二重和に含まれる確率はすべて厳密に正であるから，$f$は連続であり，$A$上で連続偏導関数を持つことが容易にわかる．
+  さらに，任意の$\mathbf{r} \in A_1$に対して，Lemma\ref{Lemma10.1}により，$f$を最大化する一意な$\mathbf{q} \in A_2$が存在することがまもなく示される．
+
+  式(\ref{10.3})の二重$\sup$は
+  \begin{eqnarray}
+    \label{10.47}
+    \sup_{\mathbf{r} \in A_1} \sup_{\mathbf{q} \in A_2} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+  \end{eqnarray}
+  となり，定理\ref{theorem10.2}により$C$に等しく，全ての$\sup$が実際に最大となる．
+  まず，$A_1$において厳密に正の入力分布を任意に選び，それを$\mathbf{r}^{(0)}$とする．
+  次に，Lemma\ref{Lemma10.1}に基づき，$\mathbf{q}^{(0)}$，一般には$k \geq 0$に対して$q^{(k)}$により
+  \begin{eqnarray}
+    \label{10.48}
+    q^{(k)}(x|y) \ \frac{r^{(k)}(x) p(y|x)}{\sum_{x'} r^{(k)}(x') p(y|x')}
+  \end{eqnarray}
+  を定義する．
+  $k \geq 1$に対して$\mathbf{r}^{(1)}$，一般的には$\mathbf{r}^{(k)}$を定義するためには，与えられた$\mathbf{q} \in A_2$に対して$f$を最大化する$\mathbf{r} \in A_1$を求める必要があり，$\mathbf{r}$に対する制約は
+  \begin{eqnarray}
+    \label{10.49}
+    \sum_{x} r(x) = 1
+  \end{eqnarray}
+  と
+  \begin{eqnarray}
+    \label{10.50}
+    r(x) > 0 \ \ \mbox{for all} \ \ x \in \mathcal{X}
+  \end{eqnarray}
+  となる．
+
+\end{proof}
 \end{document}
