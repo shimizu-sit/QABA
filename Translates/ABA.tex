@@ -271,70 +271,116 @@ $\mathbf{r}$が厳密に性でない場合は$\mathbf{r} \geq 0$と書くこと�
   \end{eqnarray}
   となる．
   これで証明は達成される．
-  さて，式(\ref{10.3})の二重$\sup$について，
-  \begin{eqnarray}
-    \label{10.39}
-    f(\mathbf{r}, \mathbf{q}) = \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
-  \end{eqnarray}
-  で，$\mathbf{r}$と$\mathbf{q}$がそれぞれ$\mathbf{u}_1$，$\mathbf{u}_2$の役を演じているとする．
-  \begin{eqnarray}
-    \label{10.40}
-    A_1 = \{ ( r(x), x \in \mathcal{X} ) : r(x) > 0 \ \ \mbox{and} \ \  \sum_{x} r(x) = 1 \}
-  \end{eqnarray}
-  と
-  \begin{eqnarray}
-    \label{10.41}
-    A_2 &=& \{ \left( q(x|y), (x,y) \in \mathcal{X} \times \mathcal{Y} \right) : q(x|y) > 0 \nonumber \\
-    && \mbox{if} \ \  p(x|y) > 0, q(x|y) = 0 \ \ \mbox{if} \ \ p(y|x) = 0 \nonumber \\
-    && \mbox{and} \ \ \sum_{x} q(x|y) = 1 \ \ \mbox{for all} \ \ y \in \mathcal{Y} \}
-  \end{eqnarray}
-  そして，$A_1$は$\mathfrak{R}^{| \mathcal{X} |}$の部分集合，$A_2$は$\mathfrak{R}^{|\mathcal{X}| |\mathcal{Y}|}$の部分集合であり，$A_1$，$A_2$ともに凸であることが容易に確認できる．
-  すべての$\mathbf{r} \in A_1$と$\mathbf{q} \in A_2$について，Lemma\ref{Lemma10.1}により
-  \begin{eqnarray}
-    \label{10.42}
-    f(\mathbf{r}, \mathbf{q}) &=& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)} \\
-    \label{10.43}
-    &\leq& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q^*(x|y)}{r(x)} \\
-    \label{10.44}
-    &=& I(X;Y) \\
-    \label{10.45}
-    &\leq& H(X) \\
-    \label{10.46}
-    &\leq& \log | \mathcal{X} |
-  \end{eqnarray}
-  となる．
-  したがって，$f$は上方から有界である．
-  すべての$\mathbf{q} \in A_2$について，$p(x|y)=0$となるようなすべての$x$と$y$について$q(x|y)=0$となるので，$\mathbf{q}$のこれらの成分は退化する．
-  実際，これらの$\mathbf{q}$の成分は式(\ref{10.39})の$f(\mathbf{r}, \mathbf{q})$の定義に現れないが，これは次のように理解できるだろう．
-  式(\ref{10.39})の二重和は$r(x)>0$かつ$p(y|x)>0$だるようなすべての$x$と$y$に対して行われるという慣例を思い出してほしい．
-  $q(x|y)=0$なら，$p(y|x)=0$あんおで，該当項は二重和に含まれない．
-  したがって，式(\ref{10.39})の二重和に含まれる確率はすべて厳密に正であるから，$f$は連続であり，$A$上で連続偏導関数を持つことが容易にわかる．
-  さらに，任意の$\mathbf{r} \in A_1$に対して，Lemma\ref{Lemma10.1}により，$f$を最大化する一意な$\mathbf{q} \in A_2$が存在することがまもなく示される．
-
-  式(\ref{10.3})の二重$\sup$は
-  \begin{eqnarray}
-    \label{10.47}
-    \sup_{\mathbf{r} \in A_1} \sup_{\mathbf{q} \in A_2} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
-  \end{eqnarray}
-  となり，定理\ref{theorem10.2}により$C$に等しく，全ての$\sup$が実際に最大となる．
-  まず，$A_1$において厳密に正の入力分布を任意に選び，それを$\mathbf{r}^{(0)}$とする．
-  次に，Lemma\ref{Lemma10.1}に基づき，$\mathbf{q}^{(0)}$，一般には$k \geq 0$に対して$q^{(k)}$により
-  \begin{eqnarray}
-    \label{10.48}
-    q^{(k)}(x|y) \ \frac{r^{(k)}(x) p(y|x)}{\sum_{x'} r^{(k)}(x') p(y|x')}
-  \end{eqnarray}
-  を定義する．
-  $k \geq 1$に対して$\mathbf{r}^{(1)}$，一般的には$\mathbf{r}^{(k)}$を定義するためには，与えられた$\mathbf{q} \in A_2$に対して$f$を最大化する$\mathbf{r} \in A_1$を求める必要があり，$\mathbf{r}$に対する制約は
-  \begin{eqnarray}
-    \label{10.49}
-    \sum_{x} r(x) = 1
-  \end{eqnarray}
-  と
-  \begin{eqnarray}
-    \label{10.50}
-    r(x) > 0 \ \ \mbox{for all} \ \ x \in \mathcal{X}
-  \end{eqnarray}
-  となる．
-
 \end{proof}
+さて，式(\ref{10.3})の二重$\sup$について，
+\begin{eqnarray}
+  \label{10.39}
+  f(\mathbf{r}, \mathbf{q}) = \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+\end{eqnarray}
+で，$\mathbf{r}$と$\mathbf{q}$がそれぞれ$\mathbf{u}_1$，$\mathbf{u}_2$の役を演じているとする．
+\begin{eqnarray}
+  \label{10.40}
+  A_1 = \{ ( r(x), x \in \mathcal{X} ) : r(x) > 0 \ \ \mbox{and} \ \  \sum_{x} r(x) = 1 \}
+\end{eqnarray}
+と
+\begin{eqnarray}
+  \label{10.41}
+  A_2 &=& \{ \left( q(x|y), (x,y) \in \mathcal{X} \times \mathcal{Y} \right) : q(x|y) > 0 \nonumber \\
+  && \mbox{if} \ \  p(x|y) > 0, q(x|y) = 0 \ \ \mbox{if} \ \ p(y|x) = 0 \nonumber \\
+  && \mbox{and} \ \ \sum_{x} q(x|y) = 1 \ \ \mbox{for all} \ \ y \in \mathcal{Y} \}
+\end{eqnarray}
+そして，$A_1$は$\mathfrak{R}^{| \mathcal{X} |}$の部分集合，$A_2$は$\mathfrak{R}^{|\mathcal{X}| |\mathcal{Y}|}$の部分集合であり，$A_1$，$A_2$ともに凸であることが容易に確認できる．
+すべての$\mathbf{r} \in A_1$と$\mathbf{q} \in A_2$について，Lemma\ref{Lemma10.1}により
+\begin{eqnarray}
+  \label{10.42}
+  f(\mathbf{r}, \mathbf{q}) &=& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)} \\
+  \label{10.43}
+  &\leq& \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q^*(x|y)}{r(x)} \\
+  \label{10.44}
+  &=& I(X;Y) \\
+  \label{10.45}
+  &\leq& H(X) \\
+  \label{10.46}
+  &\leq& \log | \mathcal{X} |
+\end{eqnarray}
+となる．
+したがって，$f$は上方から有界である．
+すべての$\mathbf{q} \in A_2$について，$p(x|y)=0$となるようなすべての$x$と$y$について$q(x|y)=0$となるので，$\mathbf{q}$のこれらの成分は退化する．
+実際，これらの$\mathbf{q}$の成分は式(\ref{10.39})の$f(\mathbf{r}, \mathbf{q})$の定義に現れないが，これは次のように理解できるだろう．
+式(\ref{10.39})の二重和は$r(x)>0$かつ$p(y|x)>0$だるようなすべての$x$と$y$に対して行われるという慣例を思い出してほしい．
+$q(x|y)=0$なら，$p(y|x)=0$あんおで，該当項は二重和に含まれない．
+したがって，式(\ref{10.39})の二重和に含まれる確率はすべて厳密に正であるから，$f$は連続であり，$A$上で連続偏導関数を持つことが容易にわかる．
+さらに，任意の$\mathbf{r} \in A_1$に対して，Lemma\ref{Lemma10.1}により，$f$を最大化する一意な$\mathbf{q} \in A_2$が存在することがまもなく示される．
+
+式(\ref{10.3})の二重$\sup$は
+\begin{eqnarray}
+  \label{10.47}
+  \sup_{\mathbf{r} \in A_1} \sup_{\mathbf{q} \in A_2} \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)}
+\end{eqnarray}
+となり，定理\ref{theorem10.2}により$C$に等しく，全ての$\sup$が実際に最大となる．
+まず，$A_1$において厳密に正の入力分布を任意に選び，それを$\mathbf{r}^{(0)}$とする．
+次に，Lemma\ref{Lemma10.1}に基づき，$\mathbf{q}^{(0)}$，一般には$k \geq 0$に対して$q^{(k)}$により
+\begin{eqnarray}
+  \label{10.48}
+  q^{(k)}(x|y) \ \frac{r^{(k)}(x) p(y|x)}{\sum_{x'} r^{(k)}(x') p(y|x')}
+\end{eqnarray}
+を定義する．
+$k \geq 1$に対して$\mathbf{r}^{(1)}$，一般的には$\mathbf{r}^{(k)}$を定義するためには，与えられた$\mathbf{q} \in A_2$に対して$f$を最大化する$\mathbf{r} \in A_1$を求める必要があり，$\mathbf{r}$に対する制約は
+\begin{eqnarray}
+  \label{10.49}
+  \sum_{x} r(x) = 1
+\end{eqnarray}
+と
+\begin{eqnarray}
+  \label{10.50}
+  r(x) > 0 \ \ \mbox{for all} \ \ x \in \mathcal{X}
+\end{eqnarray}
+となる．
+ここで，ラグランジュ乗数法を用いて，式(\ref{10.50})の正則制約を一時的に無視して最適を求める．
+\begin{eqnarray}
+  \label{10.51}
+  J = \sum_{x} \sum_{y} r(x) p(y|x) \log \frac{q(x|y)}{r(x)} - \lambda \sum_{x} r(x)
+\end{eqnarray}
+とする．
+便宜上，対数は自然対数だると仮定する．
+$r(x)$に関して微分すると
+\begin{eqnarray}
+  \label{10.52}
+  \frac{\partial J }{\partial r(x)} = \sum_{x} p(y|x) \log q(x|y) - \log r(x) - 1 - \lambda 
+\end{eqnarray}
+$\frac{\partial J }{\partial r(x)} = 0$とすると，
+\begin{eqnarray}
+  \label{10.53}
+  \log r(x) = \sum_{x} p(y|x) \log q(x|y) - 1 - \lambda
+\end{eqnarray}
+または，
+\begin{eqnarray}
+  \label{10.54}
+  r(x) = e{-(\lambda + 1)} \prod_{y} q(x|y) ^{p(y|x)}
+\end{eqnarray}
+となる．
+式(\ref{10.49})の正規化制約を考慮すれば，$\lambda$を排除して
+\begin{eqnarray}
+  \label{10.55}
+  r(x) = \frac{\prod_{y} q(x|y)^{p(y|x)}}{\sum_{x'} \prod_{y} q(x'|y)^{p(y|x')}}
+\end{eqnarray}
+を得ることができる．
+上記の積は，$p(y|x)>0$，$q(x|y)>0$となるすべての$y$についてである．
+このことは，上記右辺の分子と分母がともに正であることを意味し，したがって$r(x)>0$となる．
+つまり，ラグランジュ乗数を設定する際に無視した式{\ref{10.50}}の正値性制約を，こうして得られた$\mathbf{r}$がたまたま満たすことになる．
+10.3.2節(仮)で$f$が凹型であることを示すことにする．
+このとき，式(\ref{10.55})で与えられた$\mathbf{r}$は一意であり，$\mathbf{r}$が$A_1$の内部にあるため，与えれた$\mathbf{q} \in A_2$について$f$の最大値を実際に達成する．
+式(\ref{10.55})を考慮して，$k \geq 1$に対する$\mathbf{r}^{(k)}$を定義する．
+\begin{eqnarray}
+  \label{10.56}
+  r^{(k)}(x) = \frac{\prod_{y} q^{(k-1)}(x|y)^{p(y|x)}}{\sum_{x'} \prod_{y} q^{(k-1)}(x'|y)^{p(y|x')}}
+\end{eqnarray}
+ベクトル$\mathbf{r}^{(k)}$と$\mathbf{q}^{(k)}$は，$\mathbf{r}^{(0)}, \mathbf{q}^{(0)}, \mathbf{r}^{(1)}, \mathbf{q}^{(1)}, \mathbf{r}^{(2)}, \mathbf{q}^{(2)}, \cdots$の順に定義され，$A_1$において$\mathbf{r}^{(0)}$が任意に選ばれることを覗いて，配列中の各ベクトルは前のベクトルの関数となる．
+$k \geq 1$では$\mathbf{r}^{(k)} \in A_1$，$k \geq 0$では$\mathbf{q}^{(k)} \in A_2$であることを帰納法で示すことになる．
+$\mathbf{r}^{(k)} \in A_1$，すなわち$\mathbf{r}^{(k)} > 0$であれば，式(\ref{10.48})から$q^{(k)}(x|y)=0$，すなわち，$\mathbf{q}^{(k)} \in A_2$である場合にのみ$p(x|y)=0$であることがわかる．
+一方，$\mathbf{q}^{(k)} \in A_2$ならば，式(\ref{10.56})から$\mathbf{r}^{(k+1)}>0$，すなわち$\mathbf{q}^{(k+1)} \in A_2$であることがわかる．
+したがって，すべての$k \geq 0$に対して$\mathbf{R}^{(k)} \in A_1$，$\mathbf{q}^{(k)} \in A_2$が成立する．
+$(\mathbf{r}^{(k)}, \mathbf{q}^{(k)})$が決まれば，すべての$k$について$f^{(k)} = f(\mathbf{r}^{(k)}, \mathbf{q}^{(k)})$を計算することができる．
+10.3節（仮）で$f^{(k)} \rightarrow C$が示される予定である．
+
 \end{document}
